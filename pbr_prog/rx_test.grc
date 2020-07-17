@@ -1,7 +1,7 @@
 options:
   parameters:
-    author: ''
-    category: Custom
+    author: Lucc
+    category: '[GRC Hier Blocks]'
     cmake_opt: ''
     comment: ''
     copyright: ''
@@ -10,7 +10,7 @@ options:
     gen_linking: dynamic
     generate_options: qt_gui
     hier_block_src_path: '.:'
-    id: custom_rx
+    id: rx_test
     max_nouts: '0'
     output_language: python
     placement: (0,0)
@@ -18,16 +18,16 @@ options:
     realtime_scheduling: ''
     run: 'True'
     run_command: '{python} -u {filename}'
-    run_options: run
+    run_options: prompt
     sizing_mode: fixed
     thread_safe_setters: ''
-    title: ''
-    window_size: 720, 720
+    title: Not titled yet
+    window_size: ''
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [10, 10]
+    coordinate: [8, 8]
     rotation: 0
     state: enabled
 
@@ -36,115 +36,12 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: '1000000'
+    value: '32000'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [88, 69]
-    rotation: 0
-    state: enabled
-- name: bandwidth
-  id: parameter
-  parameters:
-    alias: ''
-    comment: ''
-    hide: none
-    label: RX Bandwidth
-    short_id: b
-    type: eng_float
-    value: '0'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [456, 8]
-    rotation: 0
-    state: enabled
-- name: blocks_file_sink_0
-  id: blocks_file_sink
-  parameters:
-    affinity: ''
-    alias: ''
-    append: 'False'
-    comment: ''
-    file: ~/OTA/qpsk_4000_05.txt
-    type: complex
-    unbuffered: 'False'
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [488, 374]
-    rotation: 0
-    state: enabled
-- name: devtype
-  id: parameter
-  parameters:
-    alias: ''
-    comment: ''
-    hide: none
-    label: Device Type
-    short_id: t
-    type: ''
-    value: type=b200
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [184, 8]
-    rotation: 0
-    state: enabled
-- name: freq
-  id: parameter
-  parameters:
-    alias: ''
-    comment: ''
-    hide: none
-    label: Default Frequency
-    short_id: f
-    type: eng_float
-    value: '2400000000.0'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [304, 8]
-    rotation: 0
-    state: enabled
-- name: freq_offset
-  id: parameter
-  parameters:
-    alias: ''
-    comment: ''
-    hide: none
-    label: 'RX Frequency Offset '
-    short_id: o
-    type: eng_float
-    value: '0'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [304, 112]
-    rotation: 0
-    state: enabled
-- name: gain
-  id: parameter
-  parameters:
-    alias: ''
-    comment: ''
-    hide: none
-    label: Default Gain
-    short_id: g
-    type: eng_float
-    value: '20'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [184, 112]
+    coordinate: [184, 12]
     rotation: 0
     state: enabled
 - name: qtgui_time_sink_x_0
@@ -241,7 +138,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [535, 255]
+    coordinate: [873, 235]
     rotation: 0
     state: true
 - name: uhd_usrp_source_0
@@ -249,39 +146,39 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    ant0: TX/RX
-    ant1: ''
-    ant10: ''
-    ant11: ''
-    ant12: ''
-    ant13: ''
-    ant14: ''
-    ant15: ''
-    ant16: ''
-    ant17: ''
-    ant18: ''
-    ant19: ''
-    ant2: ''
-    ant20: ''
-    ant21: ''
-    ant22: ''
-    ant23: ''
-    ant24: ''
-    ant25: ''
-    ant26: ''
-    ant27: ''
-    ant28: ''
-    ant29: ''
-    ant3: ''
-    ant30: ''
-    ant31: ''
-    ant4: ''
-    ant5: ''
-    ant6: ''
-    ant7: ''
-    ant8: ''
-    ant9: ''
-    bw0: bandwidth
+    ant0: RX2
+    ant1: RX2
+    ant10: RX2
+    ant11: RX2
+    ant12: RX2
+    ant13: RX2
+    ant14: RX2
+    ant15: RX2
+    ant16: RX2
+    ant17: RX2
+    ant18: RX2
+    ant19: RX2
+    ant2: RX2
+    ant20: RX2
+    ant21: RX2
+    ant22: RX2
+    ant23: RX2
+    ant24: RX2
+    ant25: RX2
+    ant26: RX2
+    ant27: RX2
+    ant28: RX2
+    ant29: RX2
+    ant3: RX2
+    ant30: RX2
+    ant31: RX2
+    ant4: RX2
+    ant5: RX2
+    ant6: RX2
+    ant7: RX2
+    ant8: RX2
+    ant9: RX2
+    bw0: '0'
     bw1: '0'
     bw10: '0'
     bw11: '0'
@@ -313,7 +210,7 @@ blocks:
     bw7: '0'
     bw8: '0'
     bw9: '0'
-    center_freq0: freq
+    center_freq0: 2.675e9
     center_freq1: '0'
     center_freq10: '0'
     center_freq11: '0'
@@ -345,7 +242,7 @@ blocks:
     center_freq7: '0'
     center_freq8: '0'
     center_freq9: '0'
-    clock_rate: '0.0'
+    clock_rate: 0e0
     clock_source0: ''
     clock_source1: ''
     clock_source2: ''
@@ -388,8 +285,8 @@ blocks:
     dc_offs_enb8: '""'
     dc_offs_enb9: '""'
     dev_addr: '""'
-    dev_args: devtype
-    gain0: gain
+    dev_args: '""'
+    gain0: '20'
     gain1: '0'
     gain10: '0'
     gain11: '0'
@@ -586,7 +483,7 @@ blocks:
     rx_agc7: Default
     rx_agc8: Default
     rx_agc9: Default
-    samp_rate: samp_rate
+    samp_rate: 1e6
     sd_spec0: ''
     sd_spec1: ''
     sd_spec2: ''
@@ -612,12 +509,11 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [64, 288]
+    coordinate: [562, 205]
     rotation: 0
-    state: enabled
+    state: true
 
 connections:
-- [uhd_usrp_source_0, '0', blocks_file_sink_0, '0']
 - [uhd_usrp_source_0, '0', qtgui_time_sink_x_0, '0']
 
 metadata:
