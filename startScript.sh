@@ -4,7 +4,7 @@
 
 # Clone the python scripts written before
 
-#git clone https://github.com/ccskying/PowderFile
+git clone https://github.com/ccskying/PowderFile
 
 # Only for the pc of X310, we need to run the following command
 # Remember to reboot the X310 after new image loaded into its FPGA
