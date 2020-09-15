@@ -9,7 +9,7 @@ git clone https://github.com/ccskying/PowderFile
 # Only for the pc of X310, we need to run the following command
 # Remember to reboot the X310 after new image loaded into its FPGA
 
-if [ $(echo $HOSTNAME | grep "pc") ]; then
+if [ $(echo $HOSTNAME | grep "cellsdrl") ]; then
 echo "pc"
     # Load image for X310
     sudo uhd_images_downloader
