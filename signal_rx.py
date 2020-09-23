@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Signal Rx
-# Generated: Wed Sep  9 18:20:53 2020
+# Generated: Wed Sep 23 18:03:17 2020
 ##################################################
 
 from distutils.version import StrictVersion
@@ -26,6 +26,7 @@ from gnuradio import qtgui
 from gnuradio import uhd
 from gnuradio.eng_option import eng_option
 from gnuradio.filter import firdes
+from gnuradio.qtgui import Range, RangeWidget
 from optparse import OptionParser
 import sip
 import sys
@@ -67,11 +68,15 @@ class signal_rx(gr.top_block, Qt.QWidget):
         # Variables
         ##################################################
         self.samp_rate = samp_rate = 1e6
-        self.bandwidth = bandwidth = 1e5
+        self.center_freq = center_freq = 2672e6
+        self.bandwidth = bandwidth = 1e6
 
         ##################################################
         # Blocks
         ##################################################
+        self._center_freq_range = Range(2671.9e6, 2672.1e6, 1e-3, 2672e6, 200)
+        self._center_freq_win = RangeWidget(self._center_freq_range, self.set_center_freq, 'usrp center frequency', "counter_slider", float)
+        self.top_layout.addWidget(self._center_freq_win)
         self.uhd_usrp_source_0 = uhd.usrp_source(
         	",".join(("", "")),
         	uhd.stream_args(
@@ -80,7 +85,7 @@ class signal_rx(gr.top_block, Qt.QWidget):
         	),
         )
         self.uhd_usrp_source_0.set_samp_rate(samp_rate)
-        self.uhd_usrp_source_0.set_center_freq(2672e6, 0)
+        self.uhd_usrp_source_0.set_center_freq(center_freq, 0)
         self.uhd_usrp_source_0.set_gain(20, 0)
         self.uhd_usrp_source_0.set_bandwidth(bandwidth, 0)
         self.qtgui_time_sink_x_0 = qtgui.time_sink_c(
@@ -177,10 +182,52 @@ class signal_rx(gr.top_block, Qt.QWidget):
 
         self._qtgui_freq_sink_x_0_win = sip.wrapinstance(self.qtgui_freq_sink_x_0.pyqwidget(), Qt.QWidget)
         self.top_layout.addWidget(self._qtgui_freq_sink_x_0_win)
+        self.qtgui_const_sink_x_0 = qtgui.const_sink_c(
+        	1024, #size
+        	"", #name
+        	1 #number of inputs
+        )
+        self.qtgui_const_sink_x_0.set_update_time(0.10)
+        self.qtgui_const_sink_x_0.set_y_axis(-2, 2)
+        self.qtgui_const_sink_x_0.set_x_axis(-2, 2)
+        self.qtgui_const_sink_x_0.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, "")
+        self.qtgui_const_sink_x_0.enable_autoscale(False)
+        self.qtgui_const_sink_x_0.enable_grid(False)
+        self.qtgui_const_sink_x_0.enable_axis_labels(True)
+
+        if not True:
+          self.qtgui_const_sink_x_0.disable_legend()
+
+        labels = ['', '', '', '', '',
+                  '', '', '', '', '']
+        widths = [1, 1, 1, 1, 1,
+                  1, 1, 1, 1, 1]
+        colors = ["blue", "red", "red", "red", "red",
+                  "red", "red", "red", "red", "red"]
+        styles = [0, 0, 0, 0, 0,
+                  0, 0, 0, 0, 0]
+        markers = [0, 0, 0, 0, 0,
+                   0, 0, 0, 0, 0]
+        alphas = [1.0, 1.0, 1.0, 1.0, 1.0,
+                  1.0, 1.0, 1.0, 1.0, 1.0]
+        for i in xrange(1):
+            if len(labels[i]) == 0:
+                self.qtgui_const_sink_x_0.set_line_label(i, "Data {0}".format(i))
+            else:
+                self.qtgui_const_sink_x_0.set_line_label(i, labels[i])
+            self.qtgui_const_sink_x_0.set_line_width(i, widths[i])
+            self.qtgui_const_sink_x_0.set_line_color(i, colors[i])
+            self.qtgui_const_sink_x_0.set_line_style(i, styles[i])
+            self.qtgui_const_sink_x_0.set_line_marker(i, markers[i])
+            self.qtgui_const_sink_x_0.set_line_alpha(i, alphas[i])
+
+        self._qtgui_const_sink_x_0_win = sip.wrapinstance(self.qtgui_const_sink_x_0.pyqwidget(), Qt.QWidget)
+        self.top_layout.addWidget(self._qtgui_const_sink_x_0_win)
 
         ##################################################
         # Connections
         ##################################################
+        self.connect((self.uhd_usrp_source_0, 0), (self.qtgui_const_sink_x_0, 0))
         self.connect((self.uhd_usrp_source_0, 0), (self.qtgui_freq_sink_x_0, 0))
         self.connect((self.uhd_usrp_source_0, 0), (self.qtgui_time_sink_x_0, 0))
 
@@ -196,6 +243,13 @@ class signal_rx(gr.top_block, Qt.QWidget):
         self.samp_rate = samp_rate
         self.uhd_usrp_source_0.set_samp_rate(self.samp_rate)
         self.qtgui_time_sink_x_0.set_samp_rate(self.samp_rate)
+
+    def get_center_freq(self):
+        return self.center_freq
+
+    def set_center_freq(self, center_freq):
+        self.center_freq = center_freq
+        self.uhd_usrp_source_0.set_center_freq(self.center_freq, 0)
 
     def get_bandwidth(self):
         return self.bandwidth
