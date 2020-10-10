@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Signal Rx
-# Generated: Sat Oct 10 03:06:30 2020
+# Generated: Sat Oct 10 03:09:01 2020
 ##################################################
 
 from distutils.version import StrictVersion
@@ -142,7 +142,7 @@ class signal_rx(gr.top_block, Qt.QWidget):
         self.qtgui_freq_sink_x_0 = qtgui.freq_sink_c(
         	1024, #size
         	firdes.WIN_BLACKMAN_hARRIS, #wintype
-        	2622e6, #fc
+        	center_freq, #fc
         	1e7, #bw
         	"", #name
         	1 #number of inputs
@@ -250,6 +250,7 @@ class signal_rx(gr.top_block, Qt.QWidget):
     def set_center_freq(self, center_freq):
         self.center_freq = center_freq
         self.uhd_usrp_source_0.set_center_freq(self.center_freq, 0)
+        self.qtgui_freq_sink_x_0.set_frequency_range(self.center_freq, 1e7)
 
     def get_bandwidth(self):
         return self.bandwidth
