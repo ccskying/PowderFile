@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Signal Rx
-# Generated: Wed Sep 23 18:03:17 2020
+# Generated: Sat Oct 10 02:15:12 2020
 ##################################################
 
 from distutils.version import StrictVersion
@@ -68,13 +68,13 @@ class signal_rx(gr.top_block, Qt.QWidget):
         # Variables
         ##################################################
         self.samp_rate = samp_rate = 1e6
-        self.center_freq = center_freq = 2672e6
+        self.center_freq = center_freq = 2622e6
         self.bandwidth = bandwidth = 1e6
 
         ##################################################
         # Blocks
         ##################################################
-        self._center_freq_range = Range(2671.9e6, 2672.1e6, 1e-3, 2672e6, 200)
+        self._center_freq_range = Range(2621.9e6, 2622.1e6, 1e-3, 2622e6, 200)
         self._center_freq_win = RangeWidget(self._center_freq_range, self.set_center_freq, 'usrp center frequency', "counter_slider", float)
         self.top_layout.addWidget(self._center_freq_win)
         self.uhd_usrp_source_0 = uhd.usrp_source(
@@ -142,7 +142,7 @@ class signal_rx(gr.top_block, Qt.QWidget):
         self.qtgui_freq_sink_x_0 = qtgui.freq_sink_c(
         	1024, #size
         	firdes.WIN_BLACKMAN_hARRIS, #wintype
-        	2672e6, #fc
+        	2622e6, #fc
         	1e7, #bw
         	"", #name
         	1 #number of inputs

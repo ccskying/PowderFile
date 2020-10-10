@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Signal Tx
-# Generated: Sat Oct 10 02:03:02 2020
+# Generated: Sat Oct 10 02:14:31 2020
 ##################################################
 
 from distutils.version import StrictVersion
@@ -25,12 +25,14 @@ from gnuradio import digital
 from gnuradio import eng_notation
 from gnuradio import gr
 from gnuradio import qtgui
+from gnuradio import uhd
 from gnuradio.eng_option import eng_option
 from gnuradio.filter import firdes
 from optparse import OptionParser
 import numpy
 import sip
 import sys
+import time
 from gnuradio import qtgui
 
 
@@ -73,6 +75,16 @@ class signal_tx(gr.top_block, Qt.QWidget):
         ##################################################
         # Blocks
         ##################################################
+        self.uhd_usrp_sink_0 = uhd.usrp_sink(
+        	",".join(("", "")),
+        	uhd.stream_args(
+        		cpu_format="fc32",
+        		channels=range(1),
+        	),
+        )
+        self.uhd_usrp_sink_0.set_samp_rate(samp_rate)
+        self.uhd_usrp_sink_0.set_center_freq(2622e6, 0)
+        self.uhd_usrp_sink_0.set_gain(25, 0)
         self.qtgui_time_sink_x_0 = qtgui.time_sink_c(
         	1024, #size
         	samp_rate, #samp_rate
@@ -133,7 +145,7 @@ class signal_tx(gr.top_block, Qt.QWidget):
         self.qtgui_const_sink_x_0.set_y_axis(-2, 2)
         self.qtgui_const_sink_x_0.set_x_axis(-2, 2)
         self.qtgui_const_sink_x_0.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, "")
-        self.qtgui_const_sink_x_0.enable_autoscale(False)
+        self.qtgui_const_sink_x_0.enable_autoscale(True)
         self.qtgui_const_sink_x_0.enable_grid(False)
         self.qtgui_const_sink_x_0.enable_axis_labels(True)
 
@@ -174,14 +186,17 @@ class signal_tx(gr.top_block, Qt.QWidget):
           verbose=False,
           log=False,
           )
+        self.blocks_multiply_const_vxx_0 = blocks.multiply_const_vcc((10, ))
         self.analog_random_source_x_0 = blocks.vector_source_b(map(int, numpy.random.randint(0, 2**8, 10000)), True)
 
         ##################################################
         # Connections
         ##################################################
         self.connect((self.analog_random_source_x_0, 0), (self.digital_psk_mod_0, 0))
-        self.connect((self.digital_psk_mod_0, 0), (self.qtgui_const_sink_x_0, 0))
-        self.connect((self.digital_psk_mod_0, 0), (self.qtgui_time_sink_x_0, 0))
+        self.connect((self.blocks_multiply_const_vxx_0, 0), (self.qtgui_const_sink_x_0, 0))
+        self.connect((self.blocks_multiply_const_vxx_0, 0), (self.qtgui_time_sink_x_0, 0))
+        self.connect((self.blocks_multiply_const_vxx_0, 0), (self.uhd_usrp_sink_0, 0))
+        self.connect((self.digital_psk_mod_0, 0), (self.blocks_multiply_const_vxx_0, 0))
 
     def closeEvent(self, event):
         self.settings = Qt.QSettings("GNU Radio", "signal_tx")
@@ -193,6 +208,7 @@ class signal_tx(gr.top_block, Qt.QWidget):
 
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
+        self.uhd_usrp_sink_0.set_samp_rate(self.samp_rate)
         self.qtgui_time_sink_x_0.set_samp_rate(self.samp_rate)
 
     def get_bandwidth(self):
