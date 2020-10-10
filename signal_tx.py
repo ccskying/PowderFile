@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Signal Tx
-# Generated: Sat Oct 10 02:14:31 2020
+# Generated: Sat Oct 10 02:46:56 2020
 ##################################################
 
 from distutils.version import StrictVersion
@@ -84,7 +84,7 @@ class signal_tx(gr.top_block, Qt.QWidget):
         )
         self.uhd_usrp_sink_0.set_samp_rate(samp_rate)
         self.uhd_usrp_sink_0.set_center_freq(2622e6, 0)
-        self.uhd_usrp_sink_0.set_gain(25, 0)
+        self.uhd_usrp_sink_0.set_gain(60, 0)
         self.qtgui_time_sink_x_0 = qtgui.time_sink_c(
         	1024, #size
         	samp_rate, #samp_rate
@@ -178,7 +178,7 @@ class signal_tx(gr.top_block, Qt.QWidget):
         self._qtgui_const_sink_x_0_win = sip.wrapinstance(self.qtgui_const_sink_x_0.pyqwidget(), Qt.QWidget)
         self.top_layout.addWidget(self._qtgui_const_sink_x_0_win)
         self.digital_psk_mod_0 = digital.psk.psk_mod(
-          constellation_points=4,
+          constellation_points=2,
           mod_code="gray",
           differential=True,
           samples_per_symbol=2,
@@ -186,7 +186,7 @@ class signal_tx(gr.top_block, Qt.QWidget):
           verbose=False,
           log=False,
           )
-        self.blocks_multiply_const_vxx_0 = blocks.multiply_const_vcc((10, ))
+        self.blocks_multiply_const_vxx_0 = blocks.multiply_const_vcc((15, ))
         self.analog_random_source_x_0 = blocks.vector_source_b(map(int, numpy.random.randint(0, 2**8, 10000)), True)
 
         ##################################################
