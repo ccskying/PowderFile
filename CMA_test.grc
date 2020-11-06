@@ -218,7 +218,7 @@
     <key>qtgui_const_sink_x</key>
     <param>
       <key>autoscale</key>
-      <value>False</value>
+      <value>True</value>
     </param>
     <param>
       <key>axislabels</key>
@@ -565,7 +565,7 @@
     <key>qtgui_const_sink_x</key>
     <param>
       <key>autoscale</key>
-      <value>False</value>
+      <value>True</value>
     </param>
     <param>
       <key>axislabels</key>
@@ -912,7 +912,7 @@
     <key>qtgui_const_sink_x</key>
     <param>
       <key>autoscale</key>
-      <value>False</value>
+      <value>True</value>
     </param>
     <param>
       <key>axislabels</key>
@@ -2852,6 +2852,12 @@
   <connection>
     <source_block_id>uhd_usrp_source_0</source_block_id>
     <sink_block_id>digital_cma_equalizer_cc_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>uhd_usrp_source_0</source_block_id>
+    <sink_block_id>qtgui_const_sink_x_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
